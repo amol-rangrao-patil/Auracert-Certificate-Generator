@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraCert- Developed by Amol Patil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- Google Fonts for better UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom Scrollbar for sleek look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 h-screen flex overflow-hidden text-slate-800">
+
+    <!-- Left Sidebar (Controls) -->
+    <div class="w-full max-w-md bg-white border-r border-slate-200 shadow-2xl z-10 flex flex-col h-full">
+
+        <!-- Header -->
+        <div class="p-6 border-b border-slate-100 bg-white sticky top-0 z-20">
+            <h1 class="text-2xl font-bold text-slate-800 tracking-tight">AuraCert </h1>
+            <p class="text-sm text-slate-500 mt-1"> - Fast and secure certificate generation.
+                <br>🔗 Report an Issue | ⭐️ Star on GitHub | ☕️ Support the Project
+
+                Built with ❤️ and 💻 | Developed by <b>Amol Patil</b>
+            </p>
+        </div>
+
+        <!-- Scrollable Content -->
+        <div class="p-6 overflow-y-auto flex-1 space-y-8">
+
+            <!-- 1. Upload Template -->
+            <section>
+                <div class="flex items-center gap-2 mb-3">
+                    <span
+                        class="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                    <h2 class="text-lg font-semibold text-slate-800">Upload Template</h2>
+                </div>
+                <div
+                    class="relative border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:border-blue-500 hover:bg-blue-50 transition cursor-pointer">
+                    <input type="file" id="templateUpload" accept="image/png, image/jpeg"
+                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                    <div class="pointer-events-none">
+                        <svg class="mx-auto h-10 w-10 text-slate-400 mb-2" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p class="text-sm font-medium text-blue-600">Click to upload image</p>
+                        <p class="text-xs text-slate-500 mt-1">PNG, JPG up to 10MB</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Typography & Placement -->
+            <section>
+                <div class="flex items-center gap-2 mb-3">
+                    <span
+                        class="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                    <h2 class="text-lg font-semibold text-slate-800">Design & Placement</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Name Settings -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h3 class="text-sm font-bold text-slate-700 mb-3 flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-purple-500"></div> Participant Name
+                        </h3>
+                        <div class="grid grid-cols-4 gap-3">
+                            <div class="col-span-1">
+                                <label class="block text-xs font-semibold text-slate-500 mb-1">X Pos</label>
+                                <input type="number" id="nameX" value="960"
+                                    class="w-full bg-white border border-slate-300 rounded-md px-2 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                            </div>
+                            <div class="col-span-1">
+                                <label class="block text-xs font-semibold text-slate-500 mb-1">Y Pos</label>
+                                <input type="number" id="nameY" value="480"
+                                    class="w-full bg-white border border-slate-300 rounded-md px-2 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                            </div>
+                            <div class="col-span-1">
+                                <label class="block text-xs font-semibold text-slate-500 mb-1">Size</label>
+                                <input type="number" id="nameSize" value="80"
+                                    class="w-full bg-white border border-slate-300 rounded-md px-2 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                            </div>
+                            <div class="col-span-1">
+                                <label class="block text-xs font-semibold text-slate-500 mb-1">Color</label>
+                                <input type="color" id="nameColor" value="#5e3185"
+                                    class="w-full h-8 rounded cursor-pointer border-0 p-0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team Settings -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h3 class="text-sm font-bold text-slate-700 mb-3 flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-blue-500"></div> Team Name
+                        </h3>
+                        <div class="grid grid-cols-4 gap-3">
+                            <div class="col-span-1">
+                                <label class="block text-xs font-semibold text-slate-500 mb-1">X Pos</label>
+                                <input type="number" id="teamX" value="550"
+                                    class="w-full bg-white border border-slate-300 rounded-md px-2 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                            </div>
+                            <div class="col-span-1">
+                                <label class="block text-xs font-semibold text-slate-500 mb-1">Y Pos</label>
+                                <input type="number" id="teamY" value="680"
+                                    class="w-full bg-white border border-slate-300 rounded-md px-2 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                            </div>
+                            <div class="col-span-1">
+                                <label class="block text-xs font-semibold text-slate-500 mb-1">Size</label>
+                                <input type="number" id="teamSize" value="40"
+                                    class="w-full bg-white border border-slate-300 rounded-md px-2 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                            </div>
+                            <div class="col-span-1">
+                                <label class="block text-xs font-semibold text-slate-500 mb-1">Color</label>
+                                <input type="color" id="teamColor" value="#1a73e8"
+                                    class="w-full h-8 rounded cursor-pointer border-0 p-0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Add Participants (Replaced CSV) -->
+            <section>
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                        <h2 class="text-lg font-semibold text-slate-800">Participants List</h2>
+                    </div>
+                    <button id="addParticipantBtn"
+                        class="text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-full transition">
+                        + Add Row
+                    </button>
+                </div>
+
+                <!-- Dynamic List Container -->
+                <div id="participantsList" class="space-y-3">
+                    <!-- Default First Row (Used for live preview) -->
+                    <div
+                        class="participant-row flex items-center gap-2 bg-white p-3 border border-slate-200 rounded-lg shadow-sm group">
+                        <div class="flex-1 space-y-2">
+                            <input type="text" placeholder="Participant Name" value="Amol Patil"
+                                class="name-input w-full bg-slate-50 border border-slate-200 rounded px-3 py-2 text-sm focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none transition placeholder-slate-400">
+                            <input type="text" placeholder="Team Name" value="Tech Titans"
+                                class="team-input w-full bg-slate-50 border border-slate-200 rounded px-3 py-2 text-sm focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none transition placeholder-slate-400">
+                        </div>
+                        <button
+                            class="delete-btn text-slate-300 hover:text-red-500 p-2 transition opacity-50 cursor-not-allowed"
+                            disabled title="Cannot delete first row">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Footer / Generate Button -->
+        <div class="p-6 border-t border-slate-200 bg-slate-50">
+            <button id="generateBtn"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-blue-200 transition-all flex items-center justify-center gap-2 opacity-50 cursor-not-allowed"
+                disabled>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Generate Certificates
+            </button>
+            <p id="statusMsg" class="text-xs text-center mt-3 font-semibold text-blue-700 h-4"></p>
+        </div>
+    </div>
+
+    <!-- Right Area (Live Preview) -->
+    <div class="flex-1 bg-slate-200/50 relative overflow-auto flex items-center justify-center p-8 background-pattern">
+
+        <div id="noImageMsg" class="absolute text-slate-400 font-medium text-lg flex flex-col items-center">
+            <div class="bg-white p-4 rounded-full shadow-sm mb-4">
+                <svg class="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                    </path>
+                </svg>
+            </div>
+            Upload your blank certificate to see live preview
+        </div>
+
+        <!-- Canvas Container -->
+        <div
+            class="relative shadow-2xl rounded-sm overflow-hidden transition-transform duration-300 hover:scale-[1.02]">
+            <canvas id="previewCanvas" class="hidden max-w-full h-auto bg-white" style="max-height: 85vh;"></canvas>
+        </div>
+    </div>
+
+    <!-- Subtle Background Pattern for Preview Area -->
+    <style>
+        .background-pattern {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+
+    <script>
+        const canvas = document.getElementById('previewCanvas');
+        const ctx = canvas.getContext('2d');
+        const noImageMsg = document.getElementById('noImageMsg');
+        const generateBtn = document.getElementById('generateBtn');
+        const statusMsg = document.getElementById('statusMsg');
+        const participantsList = document.getElementById('participantsList');
+
+        let templateImage = new Image();
+        let imageLoaded = false;
+
+        // Settings Inputs
+        const settingsInputs = [
+            'nameX', 'nameY', 'nameSize', 'nameColor',
+            'teamX', 'teamY', 'teamSize', 'teamColor'
+        ].map(id => document.getElementById(id));
+
+        // Add event listeners to trigger live preview
+        settingsInputs.forEach(input => input.addEventListener('input', drawCanvas));
+        participantsList.addEventListener('input', drawCanvas); // Triggers when typing in any Name/Team field
+
+        // Image Upload Logic
+        document.getElementById('templateUpload').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    templateImage.src = event.target.result;
+                    templateImage.onload = function () {
+                        imageLoaded = true;
+                        canvas.width = templateImage.width;
+                        canvas.height = templateImage.height;
+                        canvas.classList.remove('hidden');
+                        noImageMsg.classList.add('hidden');
+
+                        generateBtn.disabled = false;
+                        generateBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+                        drawCanvas();
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Add New Participant Row
+        document.getElementById('addParticipantBtn').addEventListener('click', () => {
+            const rowHTML = `
+                <div class="participant-row flex items-center gap-2 bg-white p-3 border border-slate-200 rounded-lg shadow-sm group animate-fade-in">
+                    <div class="flex-1 space-y-2">
+                        <input type="text" placeholder="Participant Name" class="name-input w-full bg-slate-50 border border-slate-200 rounded px-3 py-2 text-sm focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none transition placeholder-slate-400">
+                        <input type="text" placeholder="Team Name" class="team-input w-full bg-slate-50 border border-slate-200 rounded px-3 py-2 text-sm focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none transition placeholder-slate-400">
+                    </div>
+                    <button class="delete-btn text-slate-400 hover:text-red-500 hover:bg-red-50 rounded p-2 transition cursor-pointer" onclick="this.parentElement.remove(); drawCanvas();">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    </button>
+                </div>
+            `;
+            participantsList.insertAdjacentHTML('beforeend', rowHTML);
+
+            // Focus on the newly added name input
+            const newInputs = participantsList.querySelectorAll('.participant-row:last-child .name-input');
+            if (newInputs.length > 0) newInputs[0].focus();
+        });
+
+        // Draw Canvas (Live Preview) - Always uses the FIRST row's data
+        function drawCanvas() {
+            if (!imageLoaded) return;
+
+            // Clear & Draw Template
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(templateImage, 0, 0);
+
+            // Get Settings Values
+            const nX = parseInt(document.getElementById('nameX').value) || 0;
+            const nY = parseInt(document.getElementById('nameY').value) || 0;
+            const nSize = document.getElementById('nameSize').value || 40;
+            const nColor = document.getElementById('nameColor').value || '#000';
+
+            const tX = parseInt(document.getElementById('teamX').value) || 0;
+            const tY = parseInt(document.getElementById('teamY').value) || 0;
+            const tSize = document.getElementById('teamSize').value || 30;
+            const tColor = document.getElementById('teamColor').value || '#000';
+
+            // Get First Row Data for Preview
+            const firstRow = document.querySelector('.participant-row');
+            let nText = "Sample Name";
+            let tText = "Sample Team";
+
+            if (firstRow) {
+                nText = firstRow.querySelector('.name-input').value || "Participant Name";
+                tText = firstRow.querySelector('.team-input').value || "Team Name";
+            }
+
+            // Text Alignment (Center)
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+
+            // Draw Participant Name
+            ctx.font = `bold ${nSize}px Arial, sans-serif`;
+            ctx.fillStyle = nColor;
+            ctx.fillText(nText, nX, nY);
+
+            // Draw Team Name
+            ctx.font = `bold ${tSize}px Arial, sans-serif`;
+            ctx.fillStyle = tColor;
+            ctx.fillText(tText, tX, tY);
+        }
+
+        // Generate Certificates
+        generateBtn.addEventListener('click', async function () {
+            if (!imageLoaded) return;
+
+            // Collect Data
+            const rows = document.querySelectorAll('.participant-row');
+            const dataToGenerate = [];
+
+            rows.forEach(row => {
+                const name = row.querySelector('.name-input').value.trim();
+                const team = row.querySelector('.team-input').value.trim();
+                if (name !== "" || team !== "") {
+                    dataToGenerate.push({ name: name || "Unknown", team: team || "Unknown" });
+                }
+            });
+
+            if (dataToGenerate.length === 0) {
+                alert("Please add at least one Participant Name and Team Name.");
+                return;
+            }
+
+            // UI Feedback
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+            `;
+            statusMsg.innerText = "Creating images, please wait...";
+
+            // Setup Temp Canvas
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = templateImage.width;
+            tempCanvas.height = templateImage.height;
+            const tCtx = tempCanvas.getContext('2d');
+            tCtx.textAlign = "center";
+            tCtx.textBaseline = "middle";
+
+            const nX = parseInt(document.getElementById('nameX').value);
+            const nY = parseInt(document.getElementById('nameY').value);
+            const nSize = document.getElementById('nameSize').value;
+            const nColor = document.getElementById('nameColor').value;
+
+            const tX = parseInt(document.getElementById('teamX').value);
+            const tY = parseInt(document.getElementById('teamY').value);
+            const tSize = document.getElementById('teamSize').value;
+            const tColor = document.getElementById('teamColor').value;
+
+            // ZIP Setup
+            const zip = new JSZip();
+            const folder = zip.folder("India_Tech_Certificates");
+
+            // Process Each Row
+            for (let i = 0; i < dataToGenerate.length; i++) {
+                const data = dataToGenerate[i];
+
+                tCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+                tCtx.drawImage(templateImage, 0, 0);
+
+                // Draw Name
+                tCtx.font = `bold ${nSize}px Arial, sans-serif`;
+                tCtx.fillStyle = nColor;
+                tCtx.fillText(data.name, nX, nY);
+
+                // Draw Team
+                tCtx.font = `bold ${tSize}px Arial, sans-serif`;
+                tCtx.fillStyle = tColor;
+                tCtx.fillText(data.team, tX, tY);
+
+                // Convert to Blob
+                const blob = await new Promise(resolve => tempCanvas.toBlob(resolve, 'image/png'));
+
+                // Safe Filename
+                const safeName = data.name.replace(/[^a-z0-9]/gi, '_');
+                folder.file(`${safeName}_Certificate.png`, blob);
+            }
+
+            // Download Logic
+            if (dataToGenerate.length === 1) {
+                // Download single image directly
+                statusMsg.innerText = "Downloading certificate...";
+                const singleBlob = await zip.file(`India_Tech_Certificates/${dataToGenerate[0].name.replace(/[^a-z0-9]/gi, '_')}_Certificate.png`).async("blob");
+                triggerDownload(singleBlob, `${dataToGenerate[0].name}_Certificate.png`);
+                resetBtn();
+            } else {
+                // Download ZIP
+                statusMsg.innerText = "Zipping files...";
+                zip.generateAsync({ type: "blob" }).then(function (content) {
+                    triggerDownload(content, "All_Certificates.zip");
+                    resetBtn();
+                });
+            }
+        });
+
+        function triggerDownload(blob, filename) {
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
+        }
+
+        function resetBtn() {
+            generateBtn.innerHTML = `
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                Generate Certificates
+            `;
+            generateBtn.disabled = false;
+            statusMsg.innerText = "✅ Successfully generated!";
+            setTimeout(() => statusMsg.innerText = "", 4000);
+        }
+    </script>
+</body>
+
+</html>
